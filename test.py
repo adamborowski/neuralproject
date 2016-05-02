@@ -10,6 +10,7 @@ from what you see with CNNs/MLPs/etc.
 '''
 from __future__ import print_function
 import numpy as np
+import convert
 np.random.seed(1337)  # for reproducibility
 
 from keras.preprocessing import sequence
@@ -19,13 +20,15 @@ from keras.layers.core import Dense, Dropout, Activation
 from keras.layers.embeddings import Embedding
 from keras.layers.recurrent import LSTM, SimpleRNN, GRU
 from keras.datasets import imdb
+import load_data
+import input_test
 
 max_features = 20000
 maxlen = 80  # cut texts after this number of words (among top max_features most common words)
 batch_size = 32
 
 print('Loading data...')
-(X_train, y_train), (X_test, y_test) = imdb.load_data(nb_words=max_features,
+(X_train, y_train), (X_test, y_test) = load_data.load_data(nb_words=max_features,
                                                       test_split=0.2)
 print(len(X_train), 'train sequences')
 print(len(X_test), 'test sequences')
@@ -57,3 +60,5 @@ score, acc = model.evaluate(X_test, y_test,
                             batch_size=batch_size)
 print('Test score:', score)
 print('Test accuracy:', acc)
+
+input_test.test(model)
