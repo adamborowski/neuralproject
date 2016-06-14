@@ -9,7 +9,7 @@ classificationArray = []
 
 with open('/Users/aborowski/tmp/twitter-dataset.csv', 'rb') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-    limit = 2000
+    limit = 200000
     next(spamreader)
     for row in spamreader:
         tokens = convert.tokenize(row[1])

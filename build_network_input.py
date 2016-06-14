@@ -1,5 +1,6 @@
 import convert
 import pickle
+import modules.word_indexer
 
 array = pickle.load(open('target/tokens.p', 'rb'))
 
@@ -27,5 +28,7 @@ for tokens in array:
         tokenIndex.append(getWordIndex(token))
 
 print "Tweets: {}, total words: {}, unique words: {}".format(len(array), totalWords, uniqueWords)
+
+exit(0)
 pickle.dump(tokenIndexArray, open("target/tokenIndexes.p", "wb"), pickle.HIGHEST_PROTOCOL)
 pickle.dump(words, open("target/words.p", "wb"), pickle.HIGHEST_PROTOCOL)

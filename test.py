@@ -8,9 +8,15 @@ Some configurations won't converge.
 - LSTM loss decrease patterns during training can be quite different
 from what you see with CNNs/MLPs/etc.
 '''
-from __future__ import print_function
+
+# config theano to run on GPU
+import os
+os.environ['THEANO_FLAGS'] = "device=gpu,floatX=float32"
+
+
 import numpy as np
 import convert
+
 np.random.seed(1337)  # for reproducibility
 
 from keras.preprocessing import sequence
@@ -29,7 +35,7 @@ batch_size = 32
 
 print('Loading data...')
 (X_train, y_train), (X_test, y_test) = load_data.load_data(nb_words=max_features,
-                                                      test_split=0.2)
+                                                           test_split=0.2)
 print(len(X_train), 'train sequences')
 print(len(X_test), 'test sequences')
 
@@ -60,5 +66,9 @@ score, acc = model.evaluate(X_test, y_test,
                             batch_size=batch_size)
 print('Test score:', score)
 print('Test accuracy:', acc)
+
+yaml_string = model.to_yaml()
+open('target/my_model_architecture.yml', 'w').write(yaml_string)
+model.save_weights('target/my_model_weights.h5')
 
 input_test.test(model)
