@@ -70,5 +70,3 @@ print('Test accuracy:', acc)
 yaml_string = model.to_yaml()
 open('target/my_model_architecture.yml', 'w').write(yaml_string)
 model.save_weights('target/my_model_weights.h5')
-
-input_test.test(model)
