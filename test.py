@@ -14,10 +14,6 @@ import os
 os.environ['THEANO_FLAGS'] = "device=gpu,floatX=float32"
 
 
-import numpy as np
-
-np.random.seed(1337)  # for reproducibility
-
 from keras.preprocessing import sequence
 from keras.models import Sequential
 from keras.layers.core import Dense, Activation
@@ -25,7 +21,7 @@ from keras.layers.embeddings import Embedding
 from keras.layers.recurrent import LSTM
 from modules import load_data
 
-max_features = 20000
+max_features = 10000
 maxlen = 80  # cut texts after this number of words (among top max_features most common words)
 batch_size = 32
 

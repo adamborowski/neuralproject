@@ -1,7 +1,7 @@
 import pickle
 from modules.word_indexer import *
 
-NUM_MOST_POPULAR_WORDS = 300
+NUM_MOST_POPULAR_WORDS = 1000
 
 print("Phase 0: load tokens.p as words to replace with indexes")
 
