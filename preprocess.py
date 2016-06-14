@@ -16,14 +16,13 @@ with open('target/twitter-dataset.csv', 'rb') as csvfile:
         tokens = convert.tokenize(row[1])
         tokensArray.append(tokens)
         classificationArray.append(int(row[0]))
-
-        # print row[1]
-        # print tokens
-        # limit -= 1
-        # if limit < 0:
-        #     break
-
-
+        if len(tokensArray) % 10000 == 0:
+            print len(tokensArray).__str__() + " tokens..."
+            # print row[1]
+            # print tokens
+            # limit -= 1
+            # if limit < 0:
+            #     break
 
 pickle.dump(tokensArray, open("target/tokens.p", "wb"), pickle.HIGHEST_PROTOCOL)
 pickle.dump(classificationArray, open("target/sentiments.p", "wb"), pickle.HIGHEST_PROTOCOL)
