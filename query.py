@@ -1,6 +1,8 @@
 import os
+
 from keras.models import model_from_yaml
-import input_test
+
+from modules import input_test
 
 os.environ['THEANO_FLAGS'] = "device=gpu,floatX=float32"
 

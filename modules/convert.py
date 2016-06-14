@@ -13,16 +13,6 @@ def importWords():
     return
 
 
-def convert(sentence):
-    tokens = tokenize(sentence)
-    importWords()
-    preformatted = [words[word] if words.has_key(word) else 0 for word in tokens]
-
-    X, labels = load_data.load_data_by_param([preformatted], [1], nb_words=20000,
-                                             test_split=0.2)
-    return X
-
-
 def tokenize(s):
     s = s.lower()
     s = re.sub(r"https?://(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&/=]*)", "MAILUSED",

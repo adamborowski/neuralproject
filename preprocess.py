@@ -1,6 +1,7 @@
-import pickle
-import convert
 import csv
+import pickle
+
+from modules import convert
 
 # preprocess csv twitter format to pickle arrays of sentiment and tokens
 
@@ -9,7 +10,7 @@ classificationArray = []
 
 with open('target/twitter-dataset.csv', 'rb') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-    limit = 200000
+    # limit = 200000
     next(spamreader)
     for row in spamreader:
         tokens = convert.tokenize(row[1])
@@ -18,9 +19,9 @@ with open('target/twitter-dataset.csv', 'rb') as csvfile:
 
         # print row[1]
         # print tokens
-        limit -= 1
-        if limit < 0:
-            break
+        # limit -= 1
+        # if limit < 0:
+        #     break
 
 
 

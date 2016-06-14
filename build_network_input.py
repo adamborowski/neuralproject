@@ -1,34 +1,29 @@
-import convert
 import pickle
-import modules.word_indexer
+from modules.word_indexer import *
 
-array = pickle.load(open('target/tokens.p', 'rb'))
+NUM_MOST_POPULAR_WORDS = 300
 
-uniqueWords = 0
-totalWords = 0
-words = dict()
-tokenIndexArray = []
+print("Phase 0: load tokens.p as words to replace with indexes")
 
+word_array = pickle.load(open('target/tokens.p', 'rb'))
 
-def getWordIndex(word):
-    global uniqueWords
-    if words.has_key(word):
-        return words.get(word)
-    uniqueWords += 1
-    words[word] = uniqueWords
-    return uniqueWords
+print("Phase 1: get most common words and index by popularity")
+indexer = WordIndexer()
+for words in word_array:
+    for word in words:
+        indexer.add_word(word)
 
+print("Phase 2: replace every word with the occurrence key which is related to word popularity")
+occurrence_keys = indexer.compute_occurrence_keys(NUM_MOST_POPULAR_WORDS)
+index_provider = IndexProvider(occurrence_keys)
+input_data = []
 
-for tokens in array:
-    tokenIndex = []
-    tokenIndexArray.append(tokenIndex)
+for words in word_array:
+    word_indexes = []
+    input_data.append(word_indexes)
+    for word in words:
+        word_indexes.append(index_provider.get_word_index(word))
 
-    for token in tokens:
-        totalWords += 1
-        tokenIndex.append(getWordIndex(token))
-
-print "Tweets: {}, total words: {}, unique words: {}".format(len(array), totalWords, uniqueWords)
-
-exit(0)
-pickle.dump(tokenIndexArray, open("target/tokenIndexes.p", "wb"), pickle.HIGHEST_PROTOCOL)
-pickle.dump(words, open("target/words.p", "wb"), pickle.HIGHEST_PROTOCOL)
+print("Phase 3: save input_data (indices of words), save occurence_keys (word to index resolver)")
+pickle.dump(input_data, open("target/tokenIndexes.p", "wb"), pickle.HIGHEST_PROTOCOL)
+pickle.dump(occurrence_keys, open("target/words.p", "wb"), pickle.HIGHEST_PROTOCOL)

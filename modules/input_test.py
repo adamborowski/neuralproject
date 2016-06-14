@@ -1,8 +1,10 @@
-from keras.preprocessing import sequence
-from modules.word_indexer import IndexProvider
 import pickle
-import convert
+
 import numpy as np
+from keras.preprocessing import sequence
+
+from modules import convert
+from modules.word_indexer import IndexProvider
 
 
 def test(model):
@@ -21,6 +23,3 @@ def test(model):
         result = model.predict_classes(np.array(truncated))
         print("result:" + "Positive" if result[0] == 1 else "Negative")
 
-
-if __name__ == "__main__":
-    test(None)
