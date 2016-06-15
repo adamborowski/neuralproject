@@ -14,4 +14,6 @@ model.compile(loss='binary_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
+model.summary()
+
 input_test.test(model)
