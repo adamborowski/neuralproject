@@ -21,5 +21,5 @@ def test(model):
         truncated = sequence.pad_sequences([indexes], maxlen=80)
 
         result = model.predict_classes(np.array(truncated))
-        print("result:" + "Positive" if result[0] == 1 else "Negative")
-
+        print("input: " + indexes)
+        print("result: " + "Positive" if result[0] == 1 else "Negative")
