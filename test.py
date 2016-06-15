@@ -39,8 +39,8 @@ print('X_test shape:', X_test.shape)
 
 print('Build model...')
 model = Sequential()
-model.add(Embedding(max_features, 128, input_length=maxlen, dropout=0.2))
-model.add(LSTM(128, dropout_W=0.2, dropout_U=0.2))  # try using a GRU instead, for fun
+model.add(Embedding(max_features, 256, input_length=maxlen, dropout=0.2))
+model.add(LSTM(256, dropout_W=0.2, dropout_U=0.2))  # try using a GRU instead, for fun
 model.add(Dense(1))
 model.add(Activation('sigmoid'))
 
@@ -52,7 +52,7 @@ model.compile(loss='binary_crossentropy',
 print('Train...')
 print(X_train.shape)
 print(y_train.shape)
-model.fit(X_train, y_train, batch_size=batch_size, nb_epoch=4,
+model.fit(X_train, y_train, batch_size=batch_size, nb_epoch=7,
           validation_split=0.2)
 score, acc = model.evaluate(X_test, y_test,
                             batch_size=batch_size)
